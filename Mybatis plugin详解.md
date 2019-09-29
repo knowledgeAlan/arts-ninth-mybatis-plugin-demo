@@ -166,8 +166,8 @@ org.mybatis.spring.SqlSessionFactoryBean#buildSqlSessionFactory
 
 
 下面两张图是一起，03图后续流程04图接着，一张图放不下，所以分开
-[mybatis-plugin-03](images/mybatis-plugin-03.png)
-[mybatis-plugin-04](images/mybatis-plugin-04.png)
+![mybatis-plugin-03](images/mybatis-plugin-03.png)
+![mybatis-plugin-04](images/mybatis-plugin-04.png)
 ## 5.plugin相关类说明
 
 `org.apache.ibatis.plugin.Interceptor`：插件接口，自定义plugin需要实现
