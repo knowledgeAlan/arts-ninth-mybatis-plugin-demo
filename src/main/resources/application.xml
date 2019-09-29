@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+
+    <!-- spring jdbc 数据源配置-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+
+        <property name="url" value="jdbc:mysql://localhost:3306/test" />
+
+        <property name="username" value="root" />
+
+        <property name="password" value="123456" />
+    </bean>
+
+    <bean id="vendorProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="properties">
+            <props>
+                <prop key="SQL Server">sqlserver</prop>
+                <prop key="DB2">db2</prop>
+                <prop key="Oracle">oracle</prop>
+                <prop key="MySQL">mysql</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="databaseIdProvider" class="org.apache.ibatis.mapping.VendorDatabaseIdProvider">
+        <property name="properties" ref="vendorProperties"/>
+    </bean>
+    <!-- mybatis  SqlSessionFactory配置-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!-- 自动扫描路径下xml文件-->
+<!--     <property name="mapperLocations" value="classpath*:mapper/*.xml" />-->
+
+        <!-- 自动扫描路径下配置文件-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="databaseIdProvider" ref="databaseIdProvider"/>
+        <property name="plugins">
+            <array>
+                <bean class="com.zzm.intercept.ExamplePlugin"/>
+            </array>
+        </property>
+    </bean>
+
+    <!-- mapper 配置-->
+    <bean id="mpperFactoryBean" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.zzm.dao.BlogMapper" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+
+</beans>
