@@ -161,8 +161,7 @@ org.mybatis.spring.SqlSessionFactoryBean#buildSqlSessionFactory
 
 ![mybatis-plugin-01](images/mybatis-plugin-01.png)
 
-![](i
-mages/mybatis-plugin-02.png)
+![mybatis-plugin-02](images/mybatis-plugin-02.png)
 
 
 
