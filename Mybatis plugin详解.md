@@ -166,3 +166,16 @@ org.mybatis.spring.SqlSessionFactoryBean#buildSqlSessionFactory
 
 
 下面两张图是一起，03图后续流程04图接着，一张图放不下，所以分开
+[mybatis-plugin-03](images/mybatis-plugin-03.png)
+[mybatis-plugin-04](images/mybatis-plugin-04.png)
+## 5.plugin相关类说明
+
+`org.apache.ibatis.plugin.Interceptor`：插件接口，自定义plugin需要实现
+
+`org.apache.ibatis.plugin.InterceptorChain`:用list保存配置plugin，初始化在`org.mybatis.spring.SqlSessionFactoryBean#buildSqlSessionFactory`中
+
+`org.apache.ibatis.plugin.Intercepts`：自定plugin类中，说明要拦截方法
+
+`org.apache.ibatis.plugin.Plugin`：判断执行sql方法是不是在自定义plugin规则中，如果存在自动生成代理包含改插件，不存在不包含。
+
+`org.apache.ibatis.executor.Executor`：配置`org.apache.ibatis.plugin.Signature`中，进行要拦截方法
